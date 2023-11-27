@@ -21,7 +21,7 @@ COPY . .
     
 RUN apk update \
     && apk add --no-cache bash curl \
-    && chmod 777 arg.sh upload.sh cff.js web.js nezha.js \
+    && chmod 777 arg.sh bot.sh upload.sh cff.js web.js nezha.js \
     && npm install \
     && rm -rf /var/lib/apt/lists/*
 
