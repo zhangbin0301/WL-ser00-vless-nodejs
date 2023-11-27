@@ -3,7 +3,7 @@
 export UUID=${UUID:-'fd80f56e-93f3-4c85-b2a8-c77216c509a7'}
 export VPATH=${VPATH:-'vls'}
 export CF_IP=${CF_IP:-'ip.sb'}
-export SUB_NAME=${SUB_NAME:-'serv002'}
+export SUB_NAME=${SUB_NAME:-'serv003'}
 export SUB_URL=${SUB_URL:-'ip.sb'}
 
 # 上传订阅
@@ -36,11 +36,12 @@ if [[ -z "${TOK}" ]]; then
   [ -s ./argo.log ] && export ARGO_DOMAIN=$(cat ./argo.log | grep -o "info.*https://.*trycloudflare.com" | sed "s@.*https://@@g" | tail -n 1)
 fi
 
-export server_ip=$(curl -s https://ipinfo.io/ip)
-
-export country_abbreviation=$(curl -s https://ipinfo.io/${server_ip}/country)
+# 获取服务器的公共IP地址
+server_ip=$(curl -s https://ipinfo.io/ip)
+# 获取IP地址对应的国家简称
+country_abbreviation=$(curl -s https://ipinfo.io/${server_ip}/country)
 export V_URL="{PASS}://${UUID}@${CF_IP}:443?host=${ARGO_DOMAIN}&path=%2F${VPATH}%3Fed%3D2048&type=ws&encryption=none&security=tls&sni=${ARGO_DOMAIN}#{PASS}-${country_abbreviation}-${SUB_NAME}"
-
+echo "${V_URL}" > ./list.log
 if [[ -n "${SUB_URL}" ]]; then
   upload_url_data "${SUB_URL}" "${SUB_NAME}" "${V_URL}"
 fi
