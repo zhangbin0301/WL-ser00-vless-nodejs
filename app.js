@@ -186,7 +186,7 @@ const childProcess = exec(`${scriptPath}`, (error, stdout, stderr) => {
 console.log(`upload is running`);
   }
 
-setInterval(keep_sub_alive, 60 * 1000);
+setInterval(keep_sub_alive, 5 * 1000);
 
 
 //======================分隔符==============================
