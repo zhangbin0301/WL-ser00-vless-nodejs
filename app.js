@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 var exec = require("child_process").exec;
@@ -7,18 +8,22 @@ var request = require("request");
 var fs = require("fs");
 var path = require("path");
 
-//======================设置参数==============================
+//======================分隔符==============================
 const port = process.env.PORT || 3000;
 const vmms = process.env.VPATH || 'vls';
 const vmmport = process.env.VPORT || '8002';
-const nezhaser = process.env.NEZHA_SERVER || 'x';
-const nezhaKey = process.env.NEZHA_KEY || 'xxx';
+const nezhaser = process.env.NEZHA_SERVER || '';
+const nezhaKey = process.env.NEZHA_KEY || 'SxHm8XC44WHZ0NcIDO';
 const nezport = process.env.NEZHA_PORT || '443';
 const neztls = process.env.NEZHA_TLS || '--tls';
+
+// 打印消息到控制台
+
 console.log(`==============================`);
 console.log(``);
 console.log("     /stas 查看进程");
 console.log("     /listen 查看端口");
+console.log(`     /list-${nezhaKey} 查看节点`);
 console.log(``);
 console.log(`==============================`);
 //======================分隔符==============================
@@ -57,10 +62,21 @@ app.get("/info", function (req, res) {
     }
   });
 });
-
+//获取节点数据
+app.get(`/list-${nezhaKey}`, function (req, res) {
+    let cmdStr = `sed 's/{PASS}/vless/g' ./list.log | cat`;
+    exec(cmdStr, function (err, stdout, stderr) {
+      if (err) {
+        res.type("html").send("<pre>命令行执行错误：\n" + err + "</pre>");
+      }
+      else {
+        res.type("html").send(stdout);
+      }
+    });
+  });
 //获取系统监听端口
 app.get("/listen", function (req, res) {
-    let cmdStr = "netstat -nltp";
+    let cmdStr = "netstat -anl";
     exec(cmdStr, function (err, stdout, stderr) {
       if (err) {
         res.type("html").send("<pre>命令行执行错误：\n" + err + "</pre>");
@@ -113,6 +129,7 @@ app.use(
 
  // 2.请求服务器进程状态列表，若web没在运行，则调起
       exec(`ps aux | grep "web.js" | grep -v "grep"`, function (err, stdout, stderr) {
+
         if (!stdout) {
           // web 未运行，命令行调起
           exec(`nohup ./bot.sh >/dev/null 2>&1 &`, function (err, stdout, stderr) {
@@ -153,8 +170,11 @@ if (nezhaKey) {
 
 //======================分隔符==============================
 //ar-go保活
+
   function keep_cff_alive() {
-       exec(`ps aux | grep "cff.js" | grep -v "grep"`, function (err, stdout, stderr) {
+      exec(`ps aux | grep "cff.js" | grep -v "grep"`, function (err, stdout, stderr) {
+
+
         if (!stdout) {
           // ar-go 未运行，命令行调起
           exec(`./arg.sh`, function (err, stdout, stderr) {
@@ -186,7 +206,8 @@ const childProcess = exec(`${scriptPath}`, (error, stdout, stderr) => {
 console.log(`upload is running`);
   }
 
-setInterval(keep_sub_alive, 30 * 1000);
+setInterval(keep_sub_alive, 60 * 1000);
+
 
 
 //======================分隔符==============================
