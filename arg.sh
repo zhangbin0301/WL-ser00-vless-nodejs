@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# =============ÉèÖÃÒ»ÏÂ²ÎÊý=========
-export VPORT=${VPORT:-'8002'}
-#ÏÂÃæÎª¹Ì¶¨ËíµÀ²ÎÊý£¬È¥µôÇ°Ãæ#£¬²»ÉèÖÃÔòÊ¹ÓÃÁÙÊ±ËíµÀ
+# =============è®¾ç½®ä¸€ä¸‹å‚æ•°====æ”¹ç«¯å£=====
+export VPORT=${VPORT:-'8808'}
+#ä¸‹é¢ä¸ºå›ºå®šéš§é“å‚æ•°ï¼ŒåŽ»æŽ‰å‰é¢#ï¼Œä¸è®¾ç½®åˆ™ä½¿ç”¨ä¸´æ—¶éš§é“
 #export TOKL=${TOK:-'xxxx'} 
+#export ARGO_DOMAIN=${ARGO_DOMAIN:-'xxxx'}
 
-# ===============·Ö¸îÏß===============
+# ===============åˆ†å‰²çº¿===============
 run_arg() {
 chmod 777 ./cff.js
 if [[ -n "${TOK}" ]]; then
