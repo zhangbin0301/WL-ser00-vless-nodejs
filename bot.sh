@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# =============ÉèÖÃÒ»ÏÂ²ÎÊý=========
+# =============è®¾ç½®ä¸€ä¸‹å‚æ•°====æ”¹ç«¯å£=====
 
-export UUID=${UUID:-'fd80f56e-93f3-4c85-b2a8-c77216c509a7'}
-export VPORT=${VPORT:-'8002'}
+export UUID=${UUID:-'ea4909ef-7ca6-4b46-bf2e-6c07896ef338'}
+export VPORT=${VPORT:-'8808'}
 export VPATH=${VPATH:-'vls'}
 
-# ===============·Ö¸îÏß===============
+# ===============åˆ†å‰²çº¿===============
   cat > ./config.json << EOF
 {
 	"log": {
